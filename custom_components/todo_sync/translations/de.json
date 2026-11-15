@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Zwei To-do-Listen abgleichen",
-        "description": "Einträge werden über ihren Namen zugeordnet. Liste A darf eine Liste sein, die abgehakte Einträge nicht behält (z. B. die Alexa-Einkaufsliste): Verschwindet dort ein Eintrag, wird er in Liste B abgehakt, und Abhaken in Liste B entfernt ihn aus Liste A.",
+        "description": "Einträge werden über ihren Namen zugeordnet. Liste A darf eine Liste sein, die abgehakte Einträge nicht behält (z. B. die Alexa-Einkaufsliste): Verschwindet dort ein Eintrag, wird er in Liste B abgehakt, und Abhaken in Liste B hakt ihn in Liste A ab. Ein neues Paar zeigt nur eine Vorschau, bis der Abgleich in seinen Optionen eingeschaltet wird.",
         "data": {
           "list_a": "Liste A",
           "list_b": "Liste B"
@@ -11,10 +11,24 @@
       }
     },
     "error": {
-      "same_list": "Bitte zwei verschiedene Listen wählen"
+      "same_list": "Bitte zwei verschiedene Listen wählen",
+      "list_unavailable": "Eine gewählte Liste ist gerade nicht verfügbar; bitte erneut versuchen, sobald sie geladen ist",
+      "list_unsupported": "Eine gewählte Liste kann keine Einträge hinzufügen und ändern",
+      "list_in_use": "Eine gewählte Liste gehört schon zu einem anderen Paar; jede Liste kann nur in einem Paar sein"
     },
     "abort": {
       "already_configured": "Diese beiden Listen werden schon abgeglichen"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Abgleich-Optionen",
+        "description": "Solange der Abgleich aus ist, zeigt das Paar nur eine Vorschau: Die Listen werden gelesen und die geplanten Änderungen am Sensor Letzter Abgleich angezeigt, geschrieben wird nichts.",
+        "data": {
+          "sync_enabled": "Abgleich eingeschaltet (in beide Listen schreiben)"
+        }
+      }
     }
   },
   "entity": {
@@ -27,11 +41,25 @@
   "services": {
     "sync_now": {
       "name": "Jetzt abgleichen",
-      "description": "Gleicht alle eingerichteten Listenpaare sofort ab.",
+      "description": "Gleicht Listenpaare sofort ab (alle oder das gewählte).",
       "fields": {
+        "config_entry_id": {
+          "name": "Paar",
+          "description": "Nur dieses Paar abgleichen. Pflicht mit Erzwingen."
+        },
         "force": {
           "name": "Erzwingen",
-          "description": "Auch abgleichen, wenn mehr als die Hälfte der Einträge auf einmal entfernt oder abgehakt würde (gilt sonst als Ausfall einer Liste)."
+          "description": "Auch abgleichen, wenn viele Einträge abgehakt würden, weil sie in der anderen Liste fehlen, oder weil diese Liste leer erscheint (gilt sonst als Ausfall). Nur für das gewählte Paar, nur für Admins."
+        }
+      }
+    },
+    "preview": {
+      "name": "Vorschau",
+      "description": "Zeigt, was ein Abgleich jetzt ändern würde, ohne etwas zu schreiben.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Paar",
+          "description": "Nur für dieses Paar."
         }
       }
     }

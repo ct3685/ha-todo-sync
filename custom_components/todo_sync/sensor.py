@@ -25,6 +25,8 @@ class LastSyncSensor(SensorEntity):
     _attr_translation_key = "last_sync"
     _attr_device_class = SensorDeviceClass.TIMESTAMP
     _attr_should_poll = False
+    # Item names stay out of the recorder database.
+    _unrecorded_attributes = frozenset({"last_changes", "conflicts", "waiting", "preview"})
 
     def __init__(self, manager: TodoSyncManager, entry: TodoSyncConfigEntry) -> None:
         self._manager = manager
@@ -46,11 +48,16 @@ class LastSyncSensor(SensorEntity):
     def extra_state_attributes(self) -> dict[str, Any]:
         s = self._manager.status
         return {
+            "config_entry_id": self._manager.entry.entry_id,
             "list_a": self._manager.list_a,
             "list_b": self._manager.list_b,
+            "mode": "sync" if self._manager.sync_enabled else "preview",
             "open_items_a": s.items_a,
             "open_items_b": s.items_b,
             "last_attempt": s.last_attempt.isoformat() if s.last_attempt else None,
             "last_error": s.last_error,
             "last_changes": s.last_actions,
+            "conflicts": s.conflicts,
+            "waiting": s.waiting,
+            "preview": s.preview,
         }

@@ -1,6 +1,16 @@
 sync_now:
   fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: todo_sync
     force:
       default: false
       selector:
         boolean:
+preview:
+  fields:
+    config_entry_id:
+      selector:
+        config_entry:
+          integration: todo_sync
