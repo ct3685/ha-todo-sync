@@ -3,10 +3,14 @@
     "step": {
       "user": {
         "title": "Sync two to-do lists",
-        "description": "Items are matched by name. List A may be a list that cannot keep checked-off items (such as the Alexa shopping list): an item disappearing there is checked off in list B, and checking it off in list B checks it off in list A. A new pair only previews until you switch on syncing in its options.",
+        "description": "Pick the two lists to keep in sync. Nothing changes yet: turn on syncing in the pair's options when you're ready.",
         "data": {
           "list_a": "List A",
           "list_b": "List B"
+        },
+        "data_description": {
+          "list_a": "Your Alexa list.",
+          "list_b": "The list to sync it with, e.g. Skylight."
         }
       }
     },
@@ -24,9 +28,11 @@
     "step": {
       "init": {
         "title": "Sync options",
-        "description": "While syncing is off the pair only previews: the lists are read and the planned changes are shown on the Last sync sensor, nothing is written.",
         "data": {
-          "sync_enabled": "Sync enabled (write to both lists)"
+          "sync_enabled": "Sync enabled"
+        },
+        "data_description": {
+          "sync_enabled": "Off: nothing is changed, the Last sync sensor only shows what would change. On: the lists are kept in sync."
         }
       }
     }
