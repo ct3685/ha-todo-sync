@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Sync two to-do lists",
-        "description": "Items are matched by name. List A may be a list that cannot keep checked-off items (such as the Alexa shopping list): an item disappearing there is checked off in list B, and checking it off in list B removes it from list A.",
+        "description": "Items are matched by name. List A may be a list that cannot keep checked-off items (such as the Alexa shopping list): an item disappearing there is checked off in list B, and checking it off in list B checks it off in list A. A new pair only previews until you switch on syncing in its options.",
         "data": {
           "list_a": "List A",
           "list_b": "List B"
@@ -11,10 +11,24 @@
       }
     },
     "error": {
-      "same_list": "Pick two different lists"
+      "same_list": "Pick two different lists",
+      "list_unavailable": "A selected list is unavailable right now; try again once it has loaded",
+      "list_unsupported": "A selected list cannot add and update items",
+      "list_in_use": "A selected list is already part of another pair; each list can be in one pair only"
     },
     "abort": {
       "already_configured": "These two lists are already synced"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sync options",
+        "description": "While syncing is off the pair only previews: the lists are read and the planned changes are shown on the Last sync sensor, nothing is written.",
+        "data": {
+          "sync_enabled": "Sync enabled (write to both lists)"
+        }
+      }
     }
   },
   "entity": {
@@ -27,11 +41,25 @@
   "services": {
     "sync_now": {
       "name": "Sync now",
-      "description": "Sync all configured list pairs immediately.",
+      "description": "Sync list pairs immediately (all pairs, or the selected one).",
       "fields": {
+        "config_entry_id": {
+          "name": "Pair",
+          "description": "Only sync this pair. Required with force."
+        },
         "force": {
           "name": "Force",
-          "description": "Also sync when more than half of the items would be removed or checked off at once (normally treated as an outage of one list)."
+          "description": "Also sync when items would be checked off because they went missing on the other list in large numbers or because that list reads as empty (normally treated as an outage). Only for the selected pair, admins only."
+        }
+      }
+    },
+    "preview": {
+      "name": "Preview",
+      "description": "Show what a sync would change now, without writing anything.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Pair",
+          "description": "Only preview this pair."
         }
       }
     }
