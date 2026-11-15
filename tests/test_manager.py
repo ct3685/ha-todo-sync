@@ -319,6 +319,19 @@ async def test_unexpectedly_empty_small_list_wipes_nothing(
     assert "reads as empty" in status(entry).last_error
 
 
+@pytest.mark.parametrize(("source", "target"), [(A, B), (B, A)])
+async def test_checking_off_a_whole_list_at_the_store_syncs(
+    hass: HomeAssistant, fake: FakeTodo, add_pair, source, target
+) -> None:
+    names = [f"Item {i:02}" for i in range(20)]
+    entry = await _synced_pair(fake, add_pair, *names)
+    for name in names:
+        fake.user_set(source, name, DONE)
+    await sync(entry)
+    assert fake.done(target) == names and fake.open(target) == []
+    assert status(entry).last_error is None
+
+
 async def test_large_unexpected_deletion_is_refused(
     hass: HomeAssistant, fake: FakeTodo, add_pair, freezer
 ) -> None:
