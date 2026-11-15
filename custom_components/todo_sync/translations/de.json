@@ -3,10 +3,14 @@
     "step": {
       "user": {
         "title": "Zwei To-do-Listen abgleichen",
-        "description": "Einträge werden über ihren Namen zugeordnet. Liste A darf eine Liste sein, die abgehakte Einträge nicht behält (z. B. die Alexa-Einkaufsliste): Verschwindet dort ein Eintrag, wird er in Liste B abgehakt, und Abhaken in Liste B hakt ihn in Liste A ab. Ein neues Paar zeigt nur eine Vorschau, bis der Abgleich in seinen Optionen eingeschaltet wird.",
+        "description": "Die zwei Listen wählen, die abgeglichen werden sollen. Noch ändert sich nichts: Den Abgleich in den Optionen des Paars einschalten, wenn es so weit ist.",
         "data": {
           "list_a": "Liste A",
           "list_b": "Liste B"
+        },
+        "data_description": {
+          "list_a": "Die Alexa-Liste.",
+          "list_b": "Die Liste, mit der sie abgeglichen wird, z. B. Skylight."
         }
       }
     },
@@ -24,9 +28,11 @@
     "step": {
       "init": {
         "title": "Abgleich-Optionen",
-        "description": "Solange der Abgleich aus ist, zeigt das Paar nur eine Vorschau: Die Listen werden gelesen und die geplanten Änderungen am Sensor Letzter Abgleich angezeigt, geschrieben wird nichts.",
         "data": {
-          "sync_enabled": "Abgleich eingeschaltet (in beide Listen schreiben)"
+          "sync_enabled": "Abgleich eingeschaltet"
+        },
+        "data_description": {
+          "sync_enabled": "Aus: Nichts wird geändert, der Sensor Letzter Abgleich zeigt nur, was sich ändern würde. An: Die Listen werden abgeglichen."
         }
       }
     }
